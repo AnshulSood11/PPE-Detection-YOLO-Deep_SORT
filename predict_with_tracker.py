@@ -92,9 +92,16 @@ def _main_(args):
                     tracker.predict()
                     tracker.update(detections)
 
+                    n_without_helmet = 0
+                    n_with_helmet = 0
+
                     for track in tracker.tracks:
                         if not track.is_confirmed() or track.time_since_update > 1:
                             continue
+                        if track.label == 2:
+                            n_without_helmet += 1
+                        if track.label == 1:
+                            n_with_helmet += 1
                         bbox = track.to_tlbr()
                         # print(track.track_id,"+",track.label)
                         draw_box_with_id(images[i], bbox, track.track_id, track.label, config['model']['labels'])
@@ -105,6 +112,8 @@ def _main_(args):
                     #     cv2.rectangle(images[i], (int(bbox[0]), int(bbox[1])), (int(bbox[2]), int(bbox[3])), (255, 0, 0), 2)
 
                     # draw_boxes(images[i], batch_boxes[i], config['model']['labels'], obj_thresh)
+                    print("Persons without helmet = " + str(n_without_helmet))
+                    print("Persons with helmet = " + str(n_with_helmet))
                     cv2.imshow('video with bboxes', images[i])
                 images = []
             if cv2.waitKey(1) == 27:

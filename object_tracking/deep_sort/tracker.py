@@ -21,6 +21,8 @@ class Tracker:
         Number of consecutive detections before the track is confirmed. The
         track state is set to `Deleted` if a miss occurs within the first
         `n_init` frames.
+    n_alert : int
+        Number of consecutive detections without helmet before an alert is raised.
 
     Attributes
     ----------
@@ -37,11 +39,12 @@ class Tracker:
 
     """
 
-    def __init__(self, metric, max_iou_distance=0.7, max_age=30, n_init=3):
+    def __init__(self, metric, max_iou_distance=0.7, max_age=30, n_init=3, n_alert = 10):
         self.metric = metric
         self.max_iou_distance = max_iou_distance
         self.max_age = max_age
         self.n_init = n_init
+        self.n_alert = n_alert
 
         self.kf = kalman_filter.KalmanFilter()
         self.tracks = []
@@ -72,6 +75,11 @@ class Tracker:
         for track_idx, detection_idx in matches:
             self.tracks[track_idx].update(
                 self.kf, detections[detection_idx])
+            if self.tracks[track_idx].time_since_without_helmet > self.n_alert \
+                    and not self.tracks[track_idx].alert_raised:
+                self.raise_alert(self.tracks[track_idx].track_id)
+                self.tracks[track_idx].alert_raised = True
+
         for track_idx in unmatched_tracks:
             self.tracks[track_idx].mark_missed()
         for detection_idx in unmatched_detections:
@@ -133,6 +141,9 @@ class Tracker:
     def _initiate_track(self, detection):
         mean, covariance = self.kf.initiate(detection.to_xyah())
         self.tracks.append(Track(
-            mean, covariance, self._next_id, self.n_init, self.max_age,detection.label,
+            mean, covariance, self._next_id, self.n_init, self.max_age, self.n_alert, detection.label,
             detection.feature))
         self._next_id += 1
+
+    def raise_alert(self, track_id):
+        print(str(track_id) + " is not wearing helmet")

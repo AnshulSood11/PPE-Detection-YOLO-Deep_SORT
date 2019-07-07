@@ -63,22 +63,28 @@ class Track:
 
     """
 
-    def __init__(self, mean, covariance, track_id, n_init, max_age, label=-1, feature=None):
+    def __init__(self, mean, covariance, track_id, n_init, max_age, n_alert, label=-1, feature=None):
         self.mean = mean
         self.covariance = covariance
         self.track_id = track_id
         self.hits = 1
         self.age = 1
         self.time_since_update = 0
+        self.time_since_without_helmet = 0
+        self.alert_raised = False
 
         self.state = TrackState.Tentative
         self.features = []
         self.label = label
+        # if label == 2:
+        #     self.time_since_without_helmet = 0
+
         if feature is not None:
             self.features.append(feature)
 
         self._n_init = n_init
         self._max_age = max_age
+        self.n_alert = n_alert
 
     def to_tlwh(self):
         """Get current position in bounding box format `(top left x, top left y,
@@ -135,6 +141,7 @@ class Track:
         self.age += 1
         self.time_since_update += 1
 
+
     def update(self, kf, detection):
         """Perform Kalman filter measurement update step and update the feature
         cache.
@@ -151,11 +158,19 @@ class Track:
             self.mean, self.covariance, detection.to_xyah())
         self.features.append(detection.feature)
         self.label = detection.label
+        if self.label == 2:
+            self.time_since_without_helmet += 1
+        else:
+            self.time_since_without_helmet = 0
 
         self.hits += 1
         self.time_since_update = 0
         if self.state == TrackState.Tentative and self.hits >= self._n_init:
             self.state = TrackState.Confirmed
+
+        if self.alert_raised and self.label != 2:
+            self.alert_raised = False
+            self.now_wearing_helmet()
 
     def mark_missed(self):
         """Mark this track as missed (no association at the current time step).
@@ -177,3 +192,7 @@ class Track:
     def is_deleted(self):
         """Returns True if this track is dead and should be deleted."""
         return self.state == TrackState.Deleted
+
+    def now_wearing_helmet(self):
+        print(str(self.track_id) + " is now hearing helmet")
+
