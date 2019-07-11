@@ -36,7 +36,6 @@ class Tracker:
         A Kalman filter to filter target trajectories in image space.
     tracks : List[Track]
         The list of active tracks at the current time step.
-
     """
 
     def __init__(self, metric, max_iou_distance=0.7, max_age=30, n_init=3, n_alert = 10):
@@ -146,4 +145,7 @@ class Tracker:
         self._next_id += 1
 
     def raise_alert(self, track_id):
+        print("##########################################################################")
         print(str(track_id) + " is not wearing helmet")
+        print("##########################################################################")
+

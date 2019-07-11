@@ -194,5 +194,8 @@ class Track:
         return self.state == TrackState.Deleted
 
     def now_wearing_helmet(self):
+        print("##########################################################################")
         print(str(self.track_id) + " is now hearing helmet")
+        print("##########################################################################")
+
 

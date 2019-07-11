@@ -23,7 +23,7 @@ class BoundBox:
 
     def get_score(self):
         if self.score == -1:
-            self.score = self.classes[self.get_label()]
+            self.score = self.classes[self.label]
             
         return self.score      
 
