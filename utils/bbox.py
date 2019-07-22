@@ -23,7 +23,7 @@ class BoundBox:
 
     def get_score(self):
         if self.score == -1:
-            self.score = self.classes[self.get_label()]
+            self.score = self.classes[self.label]
             
         return self.score      
 
@@ -105,7 +105,9 @@ def draw_box_with_id(image, bbox,id, label, labels, quiet=True):
 
     label_str = ''
 
-    label_str += (str(id)+" "+labels[label])
+    # label_str += (str(id)+" "+labels[label])
+    label_str += (labels[label])
+
     if not quiet: print(label_str)
 
     if label >= 0:

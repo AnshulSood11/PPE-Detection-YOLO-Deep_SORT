@@ -1,5 +1,5 @@
 # vim: expandtab:ts=4:sw=4
-
+from time import strftime,localtime
 
 class TrackState:
     """
@@ -40,6 +40,8 @@ class Track:
     feature : Optional[ndarray]
         Feature vector of the detection this track originates from. If not None,
         this feature is added to the `features` cache.
+    n_alert :
+    label :
 
     Attributes
     ----------
@@ -61,24 +63,32 @@ class Track:
         A cache of features. On each measurement update, the associated feature
         vector is added to this list.
 
+
     """
 
-    def __init__(self, mean, covariance, track_id, n_init, max_age, label=-1, feature=None):
+    def __init__(self, mean, covariance, track_id, n_init, max_age, n_alert, label=-1, feature=None):
         self.mean = mean
         self.covariance = covariance
         self.track_id = track_id
         self.hits = 1
         self.age = 1
         self.time_since_update = 0
+        self.time_since_without_helmet = 0
+        self.alert_raised = False
 
         self.state = TrackState.Tentative
         self.features = []
         self.label = label
+        # if label == 2:
+        #     self.time_since_without_helmet = 0
+        self.message = ""
+        
         if feature is not None:
             self.features.append(feature)
 
         self._n_init = n_init
         self._max_age = max_age
+        self.n_alert = n_alert
 
     def to_tlwh(self):
         """Get current position in bounding box format `(top left x, top left y,
@@ -135,6 +145,7 @@ class Track:
         self.age += 1
         self.time_since_update += 1
 
+
     def update(self, kf, detection):
         """Perform Kalman filter measurement update step and update the feature
         cache.
@@ -151,11 +162,19 @@ class Track:
             self.mean, self.covariance, detection.to_xyah())
         self.features.append(detection.feature)
         self.label = detection.label
+        if self.label == 2:
+            self.time_since_without_helmet += 1
+        else:
+            self.time_since_without_helmet = 0
 
         self.hits += 1
         self.time_since_update = 0
         if self.state == TrackState.Tentative and self.hits >= self._n_init:
             self.state = TrackState.Confirmed
+
+        if self.alert_raised and self.label != 2:
+            self.alert_raised = False
+            self.now_wearing_helmet()
 
     def mark_missed(self):
         """Mark this track as missed (no association at the current time step).
@@ -177,3 +196,7 @@ class Track:
     def is_deleted(self):
         """Returns True if this track is dead and should be deleted."""
         return self.state == TrackState.Deleted
+
+    def now_wearing_helmet(self):
+        self.message = strftime("%d-%m-%Y %H:%M:%S", localtime())+" A person has now worn helmet\n"
+
