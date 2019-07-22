@@ -82,7 +82,7 @@ class Track:
         # if label == 2:
         #     self.time_since_without_helmet = 0
         self.message = ""
-
+        
         if feature is not None:
             self.features.append(feature)
 
