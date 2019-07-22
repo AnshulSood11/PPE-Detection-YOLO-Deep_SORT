@@ -1,5 +1,5 @@
 # vim: expandtab:ts=4:sw=4
-
+from time import strftime,localtime
 
 class TrackState:
     """
@@ -40,6 +40,8 @@ class Track:
     feature : Optional[ndarray]
         Feature vector of the detection this track originates from. If not None,
         this feature is added to the `features` cache.
+    n_alert :
+    label :
 
     Attributes
     ----------
@@ -61,6 +63,7 @@ class Track:
         A cache of features. On each measurement update, the associated feature
         vector is added to this list.
 
+
     """
 
     def __init__(self, mean, covariance, track_id, n_init, max_age, n_alert, label=-1, feature=None):
@@ -78,6 +81,7 @@ class Track:
         self.label = label
         # if label == 2:
         #     self.time_since_without_helmet = 0
+        self.message = ""
 
         if feature is not None:
             self.features.append(feature)
@@ -194,8 +198,5 @@ class Track:
         return self.state == TrackState.Deleted
 
     def now_wearing_helmet(self):
-        print("##########################################################################")
-        print(str(self.track_id) + " is now hearing helmet")
-        print("##########################################################################")
-
+        self.message = strftime("%d-%m-%Y %H:%M:%S", localtime())+" A person has now worn helmet\n"
 

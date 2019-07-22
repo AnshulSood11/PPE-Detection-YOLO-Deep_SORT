@@ -5,7 +5,7 @@ from . import kalman_filter
 from . import linear_assignment
 from . import iou_matching
 from .track import Track
-
+from time import strftime,localtime
 
 class Tracker:
     """
@@ -76,7 +76,7 @@ class Tracker:
                 self.kf, detections[detection_idx])
             if self.tracks[track_idx].time_since_without_helmet > self.n_alert \
                     and not self.tracks[track_idx].alert_raised:
-                self.raise_alert(self.tracks[track_idx].track_id)
+                self.tracks[track_idx].message = strftime("%d-%m-%Y %H:%M:%S", localtime())+" Person without helmet detected\n"
                 self.tracks[track_idx].alert_raised = True
 
         for track_idx in unmatched_tracks:
@@ -143,9 +143,4 @@ class Tracker:
             mean, covariance, self._next_id, self.n_init, self.max_age, self.n_alert, detection.label,
             detection.feature))
         self._next_id += 1
-
-    def raise_alert(self, track_id):
-        print("##########################################################################")
-        print(str(track_id) + " is not wearing helmet")
-        print("##########################################################################")
 

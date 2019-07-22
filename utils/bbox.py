@@ -105,7 +105,9 @@ def draw_box_with_id(image, bbox,id, label, labels, quiet=True):
 
     label_str = ''
 
-    label_str += (str(id)+" "+labels[label])
+    # label_str += (str(id)+" "+labels[label])
+    label_str += (labels[label])
+
     if not quiet: print(label_str)
 
     if label >= 0:
