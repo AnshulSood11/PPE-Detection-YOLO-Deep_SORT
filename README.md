@@ -5,8 +5,10 @@
 Using conda environment is recommended. Follow these steps to get the code running:
 
 1. First, download the zip file.
-2. Download the following files into the project directory:
+2. Download the following files into the project directory: 
+
 [mars-small128.pb](https://1drv.ms/u/s!ArJHK_Eldk0Cg3jyt-NR3xPErr_5?e=88vcgg)
+
 [full_yolo3_helmet_and_person.h5](https://1drv.ms/u/s!ArJHK_Eldk0Cg3cTEpkVoZyyxQzl?e=10MXuV)
 
 3. Run the following command to create a conda environmnet:
