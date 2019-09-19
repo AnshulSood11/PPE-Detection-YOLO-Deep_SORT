@@ -21,10 +21,10 @@ duration, say 5 seconds.
 It detects persons without helmet and displays the number of persons with helmet and
 those without helmet. It sends notification in the message box for each camera. There is global
 message box, where alerts from all cameras are displayed.
-![img2](https://drive.google.com/file/d/1L0aQLGMMzMG3j2dVw0LV3bjkd4bGTeOp/view)
+![img2](https://drive.google.com/uc?export=view&id=1L0aQLGMMzMG3j2dVw0LV3bjkd4bGTeOp)
 It detects that the same person about which it had warned earlier has now worn a
 helmet and notifies that also.
-![img3](https://drive.google.com/file/d/1l8VUS9GjKMmOsOTzQv-FZ2rm7_Ho9gM4/view)
+![img3](https://drive.google.com/uc?export=view&id=1l8VUS9GjKMmOsOTzQv-FZ2rm7_Ho9gM4)
 ### Further Plans
 Please note that this is still a work under progress and new ideas and contributions are welcome.
 1. Currently, the model has been trained to detect helmets (hard-hat) only. There are plans to train the model for other PPEs as well.
