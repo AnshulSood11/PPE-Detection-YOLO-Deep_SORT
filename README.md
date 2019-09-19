@@ -59,8 +59,10 @@ python predict.py -c config.json -n <number of cameras>
 ## Training the model
 
 ### 1. Data preparation
-Download images for training from [train_image_folder]https://drive.google.com/drive/folders/1b5ocFK8Z_plni0JL4gVhs3383V7Q9EYH?usp=sharing)
-Download annotations from [train_annot_folder](https://drive.google.com/drive/folders/1u_s_kxq0x_fqtqgJn9nKC92ikrThMDru?usp=sharing)
+Download images for training from [train_image_folder](https://drive.google.com/drive/folders/1b5ocFK8Z_plni0JL4gVhs3383V7Q9EYH?usp=sharing).
+
+Download annotations from [train_annot_folder](https://drive.google.com/drive/folders/1u_s_kxq0x_fqtqgJn9nKC92ikrThMDru?usp=sharing).
+
 Organize the dataset into 4 folders:
 * train_image_folder <= the folder that contains the train images.
 * train_annot_folder <= the folder that contains the train annotations in VOC format.
