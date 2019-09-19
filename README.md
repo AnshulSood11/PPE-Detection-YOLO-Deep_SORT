@@ -17,7 +17,7 @@ cameras is required.
 * Deep_SORT allocates unique ids to detected persons and tracks the persons through consecutive frames of the video.
 * An alert is raised if a person is found to be without proper PPE for more than some set
 duration, say 5 seconds.
-![img1](https://drive.google.com/file/d/1-uozV5f_CqtF0wnEZnIBfZsOoqbSfQyN/view)
+![img1](https://drive.google.com/uc?export=view&id=1-uozV5f_CqtF0wnEZnIBfZsOoqbSfQyN)
 It detects persons without helmet and displays the number of persons with helmet and
 those without helmet. It sends notification in the message box for each camera. There is global
 message box, where alerts from all cameras are displayed.
