@@ -1,35 +1,31 @@
 # Helmet Detection and alert system using yolo3 and DeepSORT
 
 ## Introduction
-In Industry, specially manufacturing industry, Personal Protective Equipment (hereon abbreviated as
-PPE) like helmet (hard-hat), safety-harness, goggles etc play a very important role in ensuring the
-safety of workers. However, many accidents still occur, due to the negligence of the workers as well
-as their supervisors. Supervisors can make mistakes due to the fact that such tasks are monotonous
-and they may not be able to monitor consistently. This project aims to assist the supervisors to monitor
-effectively by providing them with real time alerts.
-### Infrastructure required:
-1. The project utilizes existing CCTV camera infrastructure and no modification in
-cameras is required.
-2. Powerful enough computer(preferable with GPU) to process camera feed at good frame rate.
+In Industry, specially manufacturing industry, Personal Protective Equipment (PPE) like helmet (hard-hat), safety-harness, goggles etc play a very important role in ensuring the safety of workers. However, many accidents still occur, due to the negligence of the workers as well as their supervisors. Supervisors can make mistakes due to the fact that such tasks are monotonous and they may not be able to monitor consistently. This project aims to utilize existing CCTV camera infrastructure to assist supervisors to monitor effectively by providing them with real time alerts.
+
 ### Functioning
 * Input is taken from CCTV cameras
 * YOLO3 is used for detecting persons with proper PPE and those without PPE.
 * Deep_SORT allocates unique ids to detected persons and tracks the persons through consecutive frames of the video.
 * An alert is raised if a person is found to be without proper PPE for more than some set
 duration, say 5 seconds.
+
 ![img1](https://drive.google.com/uc?export=view&id=1-uozV5f_CqtF0wnEZnIBfZsOoqbSfQyN)
 It detects persons without helmet and displays the number of persons with helmet and
 those without helmet. It sends notification in the message box for each camera. There is global
 message box, where alerts from all cameras are displayed.
+
 ![img2](https://drive.google.com/uc?export=view&id=1L0aQLGMMzMG3j2dVw0LV3bjkd4bGTeOp)
 It detects that the same person about which it had warned earlier has now worn a
 helmet and notifies that also.
+
 ![img3](https://drive.google.com/uc?export=view&id=1l8VUS9GjKMmOsOTzQv-FZ2rm7_Ho9gM4)
-### Further Plans
+
 Please note that this is still a work under progress and new ideas and contributions are welcome.
-1. Currently, the model has been trained to detect helmets (hard-hat) only. There are plans to train the model for other PPEs as well.
-2. Integrate service (via mobile app or SMS) to send real-time notifications to supervisors present on the field.
-3. The tracker needs to be made robust.
+* Currently, the model is trained to detect helmets (hard-hat) only. I have plans to train the model for other PPEs as well.
+* Currently, only usb webcam is being supported. Support for other types of cameras needs to be added.
+* The tracker needs to be made robust.
+* Integrate service (via mobile app or SMS) to send real-time notifications to supervisors present on the field.
 
 ## Quick Start
 Using conda environment is recommended. Follow these steps to get the code running:
