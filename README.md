@@ -1,14 +1,13 @@
 # Helmet Detection and alert system using yolo3 and DeepSORT
 
 ## Introduction
-In Industry, specially manufacturing industry, Personal Protective Equipment (PPE) like helmet (hard-hat), safety-harness, goggles etc play a very important role in ensuring the safety of workers. However, many accidents still occur, due to the negligence of the workers as well as their supervisors. Supervisors can make mistakes due to the fact that such tasks are monotonous and they may not be able to monitor consistently. This project aims to utilize existing CCTV camera infrastructure to assist supervisors to monitor effectively by providing them with real time alerts.
+In Industry, specially manufacturing industry, Personal Protective Equipment (PPE) like helmet (hard-hat), safety-harness, goggles etc play a very important role in ensuring the safety of workers. However, many accidents still occur, due to the negligence of the workers as well as their supervisors. Supervisors can make mistakes due to the fact that such tasks are monotonous and they may not be able to monitor consistently. This project aims to utilize existing CCTV camera infrastructure to assist supervisors to monitor workers effectively by providing them with real time alerts.
 
 ## Functioning
 * Input is taken from CCTV cameras
 * YOLO is used for detecting persons with proper PPE and those without PPE.
-* Deep_SORT allocates unique ids to detected persons and tracks the persons through consecutive frames of the video.
-* An alert is raised if a person is found to be without proper PPE for more than some set
-duration, say 5 seconds.
+* Deep_SORT allocates unique ids to detected persons and tracks them through consecutive frames of the video.
+* An alert is raised if a person is found to be without proper PPE for more than some set duration, say 5 seconds.
 
 ![img1](https://drive.google.com/uc?export=view&id=1-uozV5f_CqtF0wnEZnIBfZsOoqbSfQyN)
 It detects persons without helmet and displays the number of persons with helmet and
@@ -23,7 +22,7 @@ helmet and notifies that also.
 
 Please note that this is still a work under progress and new ideas and contributions are welcome.
 * Currently, the model is trained to detect helmets (hard-hat) only. I have plans to train the model for other PPEs as well.
-* Currently, only usb webcam is supported. Support for other types of cameras needs to be added.
+* Currently, only usb cameras are supported. Support for other cameras needs to be added.
 * The tracker needs to be made robust.
 * Integrate service (via mobile app or SMS) to send real-time notifications to supervisors present on the field.
 
@@ -61,8 +60,11 @@ python predict.py -c config.json -n <number of cameras>
 ### 1. Data preparation
 
 **Data Collection**
+
 The dataset containing images of people wearing helmets and people without helmets were collected mostly from google search. Some images have people applauding, those were collected from Stanford 40 Action Dataset. Download images for training from [train_image_folder](https://drive.google.com/drive/folders/1b5ocFK8Z_plni0JL4gVhs3383V7Q9EYH?usp=sharing).
+
 **Annotations**
+
 Annotaion of each image was done in Pascal VOC format using the awesome lightweight annotation tool LabelImg for object-detection. Download annotations from [train_annot_folder](https://drive.google.com/drive/folders/1u_s_kxq0x_fqtqgJn9nKC92ikrThMDru?usp=sharing).
 
 **Organize the dataset into 4 folders:**
@@ -137,17 +139,19 @@ Copy the generated anchors printed on the terminal to the `anchors` setting in `
 
 By the end of this process, the code will write the weights of the best model to file best_weights.h5 (or whatever name specified in the setting "saved_weights_name" in the config.json file). The training process stops when the loss on the validation set is not improved in 3 consecutive epoches.
  
- ### 5. Perform detection using trained weights on image, set of images, video, or webcam
+ ### 5. Perform detection using trained weights on live feed from webcam
  
- `python predict.py -c config.json -i /path/to/image/or/video`
+  To run the code with gui :
+```bash
+python predict_gui.py -c config.json -n <number of cameras>
+```
+  Note that the gui supports only upto 2 cameras.
 
-It carries out detection on the image and write the image with detected bounding boxes to the same folder.
-
-## Evaluation
-
-`python evaluate.py -c config.json`
-
-Compute the mAP performance of the model defined in `saved_weights_name` on the validation dataset defined in `valid_image_folder` and `valid_annot_folder`.
+  To run the code without gui :
+```bash
+python predict.py -c config.json -n <number of cameras>
+```
+  Here you can enter any number of cameras you want to use.
 
 ## Acknowledgements
 
