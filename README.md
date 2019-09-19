@@ -59,11 +59,13 @@ python predict.py -c config.json -n <number of cameras>
 ## Training the model
 
 ### 1. Data preparation
-Download images for training from [train_image_folder](https://drive.google.com/drive/folders/1b5ocFK8Z_plni0JL4gVhs3383V7Q9EYH?usp=sharing).
 
-Download annotations from [train_annot_folder](https://drive.google.com/drive/folders/1u_s_kxq0x_fqtqgJn9nKC92ikrThMDru?usp=sharing).
+**Data Collection**
+The dataset containing images of people wearing helmets and people without helmets were collected mostly from google search. Some images have people applauding, those were collected from Stanford 40 Action Dataset. Download images for training from [train_image_folder](https://drive.google.com/drive/folders/1b5ocFK8Z_plni0JL4gVhs3383V7Q9EYH?usp=sharing).
+**Annotations**
+Annotaion of each image was done in Pascal VOC format using the awesome lightweight annotation tool LabelImg for object-detection. Download annotations from [train_annot_folder](https://drive.google.com/drive/folders/1u_s_kxq0x_fqtqgJn9nKC92ikrThMDru?usp=sharing).
 
-Organize the dataset into 4 folders:
+**Organize the dataset into 4 folders:**
 * train_image_folder <= the folder that contains the train images.
 * train_annot_folder <= the folder that contains the train annotations in VOC format.
 * valid_image_folder <= the folder that contains the validation images.
@@ -121,7 +123,7 @@ The model section defines the type of the model to construct as well as other pa
 Download pretrained weights for backend at:
 [backend.h5](https://1drv.ms/u/s!ArJHK_Eldk0Cg3nUkkHZcS7btEGb?e=BlFGvM)
 
-These weights must be put in the root folder of the repository. They are the pretrained weights for the backend only and will be loaded during model creation. The code does not work without these weights.
+**These weights must be put in the root folder of the repository. They are the pretrained weights for the backend only and will be loaded during model creation. The code does not work without these weights.**
 
 ### 3. Generate anchors for your dataset (optional)
 
