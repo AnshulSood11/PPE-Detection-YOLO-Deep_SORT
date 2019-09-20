@@ -65,7 +65,7 @@ The dataset containing images of people wearing helmets and people without helme
 
 **Annotations**
 
-Annotaion of each image was done in Pascal VOC format using the awesome lightweight annotation tool LabelImg for object-detection. Download annotations from [train_annot_folder](https://drive.google.com/drive/folders/1u_s_kxq0x_fqtqgJn9nKC92ikrThMDru?usp=sharing).
+Annotaion of each image was done in Pascal VOC format using the awesome lightweight annotation tool [LabelImg](https://github.com/tzutalin/labelImg) for object-detection. Download annotations from [train_annot_folder](https://drive.google.com/drive/folders/1u_s_kxq0x_fqtqgJn9nKC92ikrThMDru?usp=sharing).
 
 **Organize the dataset into 4 folders:**
 * train_image_folder <= the folder that contains the train images.
