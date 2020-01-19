@@ -9,16 +9,16 @@ In Industry, specially manufacturing industry, Personal Protective Equipment (PP
 * Deep_SORT allocates unique ids to detected persons and tracks them through consecutive frames of the video.
 * An alert is raised if a person is found to be without proper PPE for more than some set duration, say 5 seconds.
 
-![img1](https://drive.google.com/uc?export=view&id=1-uozV5f_CqtF0wnEZnIBfZsOoqbSfQyN)
+![img1](https://github.com/AnshulSood11/PPE-Detection-YOLO-Deep_SORT/blob/master/ppe-demo-images/img1.png)
 It detects persons without helmet and displays the number of persons with helmet and
 those without helmet. It sends notification in the message box for each camera. There is global
 message box, where alerts from all cameras are displayed.
 
-![img2](https://drive.google.com/uc?export=view&id=1L0aQLGMMzMG3j2dVw0LV3bjkd4bGTeOp)
+![img2](https://github.com/AnshulSood11/PPE-Detection-YOLO-Deep_SORT/blob/master/ppe-demo-images/img2.png)
 It detects that the same person about which it had warned earlier has now worn a
 helmet and notifies that also.
 
-![img3](https://drive.google.com/uc?export=view&id=1l8VUS9GjKMmOsOTzQv-FZ2rm7_Ho9gM4)
+![img3](https://github.com/AnshulSood11/PPE-Detection-YOLO-Deep_SORT/blob/master/ppe-demo-images/img3.png)
 
 Please note that this is still a work under progress and new ideas and contributions are welcome.
 * Currently, the model is trained to detect helmets (hard-hat) only. I have plans to train the model for other PPEs as well.
