@@ -40,6 +40,10 @@ Using conda environment is recommended. Follow these steps to get the code runni
 ```bash
  conda env create -f environment.yml
 ```
+Alternatively,
+```bash
+conda create --name helmet-detection --file requirements.txt
+```
 4. Activate the conda environment:
 ```bash
 conda activate helmet-detection
